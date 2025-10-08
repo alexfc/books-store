@@ -26,7 +26,7 @@ class BuyerLoginController extends Controller
         ]);
 
         if (Auth::guard('buyer')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            return redirect()->intended(route('public.dashboard'));
+            return redirect()->intended(route('public.books.index'));
         }
 
         return redirect()->back()->withInput($request->only('email', 'remember'));

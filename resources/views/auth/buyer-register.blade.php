@@ -1,66 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buyer Registration</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <div>
-                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                    Register for a public account
-                </h2>
-            </div>
-            <form class="mt-8 space-y-6" action="{{ route('public.register.submit') }}" method="POST">
-                @csrf
-                <div class="rounded-md shadow-sm -space-y-px">
-                    <div>
-                        <label for="name" class="sr-only">Name</label>
-                        <input id="name" name="name" type="text" autocomplete="name" required
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                               placeholder="Name" value="{{ old('name') }}">
-                    </div>
-                    <div>
-                        <label for="email-address" class="sr-only">Email address</label>
-                        <input id="email-address" name="email" type="email" autocomplete="email" required
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                               placeholder="Email address" value="{{ old('email') }}">
-                    </div>
-                    <div>
-                        <label for="password" class="sr-only">Password</label>
-                        <input id="password" name="password" type="password" autocomplete="new-password" required
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                               placeholder="Password">
-                    </div>
-                    <div>
-                        <label for="password-confirm" class="sr-only">Confirm Password</label>
-                        <input id="password-confirm" name="password_confirmation" type="password" autocomplete="new-password" required
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                               placeholder="Confirm Password">
-                    </div>
-                </div>
+@extends('layouts.public')
 
-                <div>
-                    <button type="submit"
-                            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Register
-                    </button>
-                </div>
-
-                @if ($errors->any())
-                    <div class="text-red-500 text-sm mt-2">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-            </form>
+@section('content')
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+        <div>
+            <h2 class="text-2xl font-bold text-center text-gray-900">Регистрация</h2>
         </div>
+
+        @if ($errors->any())
+            <div class="text-red-500 text-sm">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form class="space-y-6" action="{{ route('public.register.submit') }}" method="POST">
+            @csrf
+            <div>
+                <label for="name" class="text-sm font-medium text-gray-700">Имя</label>
+                <input id="name" name="name" type="text" autocomplete="name" required
+                       class="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                       placeholder="Имя" value="{{ old('name') }}">
+            </div>
+
+            <div>
+                <label for="email" class="text-sm font-medium text-gray-700">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required
+                       class="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                       placeholder="you@example.com" value="{{ old('email') }}">
+            </div>
+
+            <div>
+                <label for="password" class="text-sm font-medium text-gray-700">Пароль</label>
+                <input id="password" name="password" type="password" autocomplete="new-password" required
+                       class="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                       placeholder="Пароль">
+            </div>
+
+            <div>
+                <label for="password_confirmation" class="text-sm font-medium text-gray-700">Подтверждение пароля</label>
+                <input id="password_confirmation" name="password_confirmation" type="password" autocomplete="new-password" required
+                       class="block w-full px-3 py-2 mt-1 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                       placeholder="Подтверждение пароля">
+            </div>
+
+            <div>
+                <button type="submit"
+                        class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Зарегистрироваться
+                </button>
+            </div>
+        </form>
     </div>
-</body>
-</html>
+</div>
+@endsection
